@@ -61,7 +61,7 @@ export default function App() {
           )}
         </main>
 
-        <footer className={styles.footer}>Built for MP — PokéAPI demo.</footer>
+        <footer className={styles.footer}>PokeDex 2025 - Limited Edition</footer>
       </div>
     </Router>
   );
