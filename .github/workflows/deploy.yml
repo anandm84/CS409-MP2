@@ -34,6 +34,10 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Create 404.html fallback
+        run: cp build/index.html build/404.html
+        working-directory: pokemon-mp
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
