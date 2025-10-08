@@ -2,6 +2,7 @@
   "name": "pokemon-mp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://anandm84.github.io/CS409-MP2/pokemon-mp",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
