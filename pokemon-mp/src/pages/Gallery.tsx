@@ -40,7 +40,7 @@ const Gallery: React.FC<GalleryProps> = ({ pokemons }) => {
     setSelectedTypes(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
   };
 
-  const filtered = useMemo(() => {
+  const _filtered = useMemo(() => {
     if (selectedTypes.length === 0) return pokemons;
     // keep pokemons that have all selected types
     return pokemons.filter(p => {
