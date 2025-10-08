@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../styles/Gallery.module.css";
 import { BasicPokemon, getPokemonDetail } from "../api/pokemon";
 import { useEffect } from "react";
+import PokemonCard from "../components/PokemonCard/PokemonCard";
 
 interface GalleryProps {
   pokemons: BasicPokemon[];
@@ -40,10 +41,17 @@ const Gallery: React.FC<GalleryProps> = ({ pokemons }) => {
     setSelectedTypes(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
   };
 
-  const _filtered = useMemo(() => {
+  const filtered = useMemo(() => {
   if (selectedTypes.length === 0) return pokemons;
-  return pokemons.filter(p => true); 
+  return pokemons.filter(p => {
+    return true; // you’ll replace this with real type filtering
+  });
 }, [pokemons, selectedTypes]);
+
+// later in JSX
+{filtered.map(p => (
+  <PokemonCardLoader key={p.id} id={p.id} />
+))}
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Gallery</h2>
@@ -108,6 +116,22 @@ function GalleryCard({ pokemon, selectedTypes, onClick }: { pokemon: BasicPokemo
       </div>
     </div>
   );
+}
+
+// Loader component to fetch full Pokemon details before rendering PokemonCard
+function PokemonCardLoader({ id }: { id: number }) {
+  const [pokemon, setPokemon] = useState<any | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPokemonDetail(id).then(detail => {
+      if (!cancelled) setPokemon(detail);
+    });
+    return () => { cancelled = true; };
+  }, [id]);
+
+  if (!pokemon) return <div>Loading…</div>;
+  return <PokemonCard pokemon={pokemon} />;
 }
 
 export default Gallery;
