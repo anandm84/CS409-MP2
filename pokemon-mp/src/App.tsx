@@ -1,11 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import ListView from './pages/ListView';
-import GalleryView from './pages/GalleryView';
-import DetailView from './pages/DetailView';
-import styles from './styles/App.module.css';
+// src/App.tsx
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import List from "./pages/List";
+import Gallery from "./pages/Gallery";
+import Detail from "./pages/Detail";
+import styles from "./styles/App.module.css";
+import "./App.css";
+import { getPokemonList, BasicPokemon } from "./api/pokemon";
 
 export default function App() {
+  const [pokemons, setPokemons] = useState<BasicPokemon[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      setLoading(true);
+      try {
+        const list = await getPokemonList(151);
+        if (!cancelled) setPokemons(list);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <Router>
       <div className={styles.app}>
@@ -18,16 +41,27 @@ export default function App() {
         </header>
 
         <main className={styles.main}>
-          <Routes>
-            <Route path="/" element={<ListView />} />
-            <Route path="/gallery" element={<GalleryView />} />
-            <Route path="/pokemon/:idOrName" element={<DetailView />} />
-          </Routes>
+          {loading ? (
+            <div className={styles.loading}>Loading Pokémons…</div>
+          ) : (
+            <Routes>
+              <Route
+                path="/"
+                element={<List pokemons={pokemons} />}
+              />
+              <Route
+                path="/gallery"
+                element={<Gallery pokemons={pokemons} />}
+              />
+              <Route
+                path="/pokemon/:idOrName"
+                element={<Detail pokemons={pokemons} />}
+              />
+            </Routes>
+          )}
         </main>
 
-        <footer className={styles.footer}>
-          Built for MP — PokéAPI demo.
-        </footer>
+        <footer className={styles.footer}>Built for MP — PokéAPI demo.</footer>
       </div>
     </Router>
   );

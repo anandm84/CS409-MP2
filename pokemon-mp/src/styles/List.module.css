@@ -1,0 +1,79 @@
+/* src/styles/List.module.css */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.search {
+  background: #000;
+  border: 1px solid #39ff14;
+  color: #39ff14;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-family: inherit;
+  min-width: 280px;
+}
+
+.sortRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.select {
+  background: #000;
+  border: 1px solid #39ff14;
+  color: #39ff14;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid #39ff14;
+  color: #39ff14;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid #39ff14;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #000;
+}
+
+.listItem:hover {
+  box-shadow: 0 0 8px #39ff14, 0 0 18px #39ff14;
+  transform: translateY(-2px);
+}
+
+.id {
+  width: 56px;
+  color: #39ff14;
+}
+
+.name {
+  font-weight: bold;
+  color: #39ff14;
+}
