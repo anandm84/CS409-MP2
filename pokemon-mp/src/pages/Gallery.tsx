@@ -41,15 +41,9 @@ const Gallery: React.FC<GalleryProps> = ({ pokemons }) => {
   };
 
   const _filtered = useMemo(() => {
-    if (selectedTypes.length === 0) return pokemons;
-    // keep pokemons that have all selected types
-    return pokemons.filter(p => {
-      // we need types per pokemon — but to avoid refetch we assume types derived in effect above and cached by getPokemonDetail if needed
-      // We'll fetch detail for each filtered on demand in rendering (small)
-      return true; // placeholder: actual filter performed in render by checking detail
-    });
-  }, [pokemons, selectedTypes]);
-
+  if (selectedTypes.length === 0) return pokemons;
+  return pokemons.filter(p => true); 
+}, [pokemons, selectedTypes]);
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Gallery</h2>
